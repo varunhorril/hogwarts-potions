@@ -16,6 +16,17 @@ namespace HogwartsPotions.GraphQL.Types
                 resolve: context => potionRepository.GetAll()
 
                 );
+
+            Field<PotionType>(
+                "potion",
+                arguments: new QueryArguments(new QueryArgument<NonNullGraphType<IdGraphType>>
+                { Name = "id" }),
+                resolve: context =>
+                   {
+                       var id = context.GetArgument<int>("id");
+                       return potionRepository.Get(id);
+                   }
+               );
         }
     }
 }

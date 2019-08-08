@@ -1,5 +1,6 @@
 ﻿using HogwartsPotions.Data;
 using HogwartsPotions.Data.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,9 +17,14 @@ namespace HogwartsPotions.Repositories
             _dbContext = dbContext;
         }
 
-        public IEnumerable<Potion> GetAll()
+        public async Task<Potion> Get(int id)
         {
-            return _dbContext.Potions;
+            return await _dbContext.Potions.SingleAsync(p => p.Id == id);
+        }
+
+        public async Task<IEnumerable<Potion>> GetAll()
+        {
+            return await _dbContext.Potions.ToListAsync();
         }
     }
 }
