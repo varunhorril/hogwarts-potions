@@ -4,14 +4,16 @@ using HogwartsPotions.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HogwartsPotions.Migrations
 {
     [DbContext(typeof(PotionDbContext))]
-    partial class PotionDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190808133202_AddPotionReview")]
+    partial class AddPotionReview
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
