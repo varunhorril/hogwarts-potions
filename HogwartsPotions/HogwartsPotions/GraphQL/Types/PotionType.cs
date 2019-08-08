@@ -1,5 +1,6 @@
 ﻿using GraphQL.Types;
 using HogwartsPotions.Data.Entities;
+using HogwartsPotions.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace HogwartsPotions.GraphQL.Types
 {
     public class PotionType : ObjectGraphType<Potion>
     {
-        public PotionType()
+        public PotionType(PotionReviewRepository reviewRepository)
         {
             #region Potion
             Field(t => t.Id);
@@ -22,7 +23,12 @@ namespace HogwartsPotions.GraphQL.Types
             Field<PotionTypeEnumType>("Type", "The type of potion");
             #endregion
 
-            #region Potion Types
+            #region Potion Reviews
+
+            Field<ListGraphType<PotionReviewType>>(
+                "reviews",
+                resolve: context => reviewRepository.GetForProduct(context.Source.Id)
+                );
 
             #endregion
 
