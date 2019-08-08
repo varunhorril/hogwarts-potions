@@ -33,6 +33,7 @@ namespace HogwartsPotions
         {
             services.AddDbContext<PotionDbContext>(options => options.UseSqlServer(_config["ConnectionStrings:HogwartsPotions"]));
             services.AddScoped<PotionRepository>();
+            services.AddScoped<PotionReviewRepository>();
 
             services.AddScoped<IDependencyResolver>(s => new FuncDependencyResolver(s.GetRequiredService));
             services.AddScoped<PotionsSchema>();
