@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GraphQL;
+using GraphQL.Server;
 using HogwartsPotions.Data;
+using HogwartsPotions.GraphQL;
 using HogwartsPotions.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -27,14 +30,20 @@ namespace HogwartsPotions
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddDbContext<PotionDbContext>(options => options.UseSqlServer(_config["ConnectionStrings:HogwartsPotions"]));
             services.AddSingleton<PotionRepository>();
+
+            services.AddScoped<IDependencyResolver>(s => new FuncDependencyResolver(s.GetRequiredService));
+            services.AddScoped<PotionsSchema>();
+
+            services.AddGraphQL(o => { o.ExposeExceptions = true; })
+                    .AddGraphTypes(ServiceLifetime.Scoped);
+
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, PotionDbContext dbContext)
         {
-            app.UseMvc();
+            app.UseGraphQL<PotionsSchema>();
             dbContext.Seed();
         }
     }
