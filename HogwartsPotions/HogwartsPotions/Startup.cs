@@ -32,7 +32,7 @@ namespace HogwartsPotions
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<PotionDbContext>(options => options.UseSqlServer(_config["ConnectionStrings:HogwartsPotions"]));
-            services.AddSingleton<PotionRepository>();
+            services.AddScoped<PotionRepository>();
 
             services.AddScoped<IDependencyResolver>(s => new FuncDependencyResolver(s.GetRequiredService));
             services.AddScoped<PotionsSchema>();
@@ -48,6 +48,7 @@ namespace HogwartsPotions
             app.UseGraphQLPlayground(new GraphQLPlaygroundOptions());
 
             dbContext.Seed();
+
         }
     }
 }

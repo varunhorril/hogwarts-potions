@@ -8,6 +8,6 @@ namespace HogwartsPotions.Data.Entities
     public class TimeBase
     {
         public DateTime CreatedOn { get; set; }
-        public DateTime UpdatedOn { get; set; }
+        public DateTime? UpdatedOn { get; set; }
     }
 }

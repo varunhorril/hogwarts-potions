@@ -9,10 +9,12 @@ namespace HogwartsPotions.Data
 {
     public class PotionDbContext : DbContext
     {
-        public PotionDbContext(DbContextOptions<PotionDbContext> options)
+        public PotionDbContext(DbContextOptions<PotionDbContext> options) : base(options)
         {
 
         }
+
+
 
         public DbSet<Potion> Potions { get; set; }
     }
