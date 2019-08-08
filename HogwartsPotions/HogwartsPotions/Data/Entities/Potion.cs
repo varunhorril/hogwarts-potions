@@ -14,7 +14,7 @@ namespace HogwartsPotions.Data.Entities
         [StringLength(100)]
         public string Name { get; set; }
 
-        public string Type { get; set; }
+        public PotionType? Type { get; set; }
         public string Description { get; set; }
 
         [Column(TypeName ="decimal(18,2)")]
