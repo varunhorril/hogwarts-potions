@@ -39,7 +39,8 @@ namespace HogwartsPotions
             services.AddScoped<PotionsSchema>();
 
             services.AddGraphQL(o => { o.ExposeExceptions = true; })
-                    .AddGraphTypes(ServiceLifetime.Scoped);
+                    .AddGraphTypes(ServiceLifetime.Scoped)
+                    .AddDataLoader();
 
         }
 

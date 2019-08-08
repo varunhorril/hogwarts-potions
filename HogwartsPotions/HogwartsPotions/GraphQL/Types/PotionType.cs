@@ -1,4 +1,5 @@
-﻿using GraphQL.Types;
+﻿using GraphQL.DataLoader;
+using GraphQL.Types;
 using HogwartsPotions.Data.Entities;
 using HogwartsPotions.Repositories;
 using System;
@@ -10,7 +11,7 @@ namespace HogwartsPotions.GraphQL.Types
 {
     public class PotionType : ObjectGraphType<Potion>
     {
-        public PotionType(PotionReviewRepository reviewRepository)
+        public PotionType(PotionReviewRepository reviewRepository, IDataLoaderContextAccessor dataLoaderAccessor)
         {
             #region Potion
             Field(t => t.Id);
@@ -27,8 +28,13 @@ namespace HogwartsPotions.GraphQL.Types
 
             Field<ListGraphType<PotionReviewType>>(
                 "reviews",
-                resolve: context => reviewRepository.GetForProduct(context.Source.Id)
-                );
+                resolve: context =>
+                {
+                    var loader = dataLoaderAccessor.Context
+                                                   .GetOrAddCollectionBatchLoader<int, PotionReview>("GetReviewsByProductId", reviewRepository.GetForProducts);
+
+                    return loader.LoadAsync(context.Source.Id);
+                });
 
             #endregion
 
