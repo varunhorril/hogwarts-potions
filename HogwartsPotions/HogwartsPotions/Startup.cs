@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using GraphQL;
 using GraphQL.Server;
+using GraphQL.Server.Ui.Playground;
 using HogwartsPotions.Data;
 using HogwartsPotions.GraphQL;
 using HogwartsPotions.Repositories;
@@ -44,6 +45,8 @@ namespace HogwartsPotions
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, PotionDbContext dbContext)
         {
             app.UseGraphQL<PotionsSchema>();
+            app.UseGraphQLPlayground(new GraphQLPlaygroundOptions());
+
             dbContext.Seed();
         }
     }
