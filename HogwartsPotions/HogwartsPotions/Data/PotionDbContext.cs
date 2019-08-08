@@ -14,7 +14,7 @@ namespace HogwartsPotions.Data
 
         }
 
-
         public DbSet<Potion> Potions { get; set; }
+        public DbSet<PotionReview> PotionReviews { get; set; }
     }
 }
