@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HogwartsPotions.Web.Models
 {
-    public class ProductViewModel
+    public class PotionViewModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -17,7 +17,7 @@ namespace HogwartsPotions.Web.Models
         public int Rating { get; set; }
         public DateTimeOffset IntroducedAt { get; set; }
         public string PhotoFileName { get; set; }
-        public List<ProductReview> Reviews { get; set; }
+        public List<PotionReview> Reviews { get; set; }
 
     }
 }
